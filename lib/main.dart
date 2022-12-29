@@ -1,7 +1,6 @@
-import 'package:financy_app/app/app_widget.dart';
+import 'package:financy_app/src/app_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(const MyApp());
 }
-
