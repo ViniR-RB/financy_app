@@ -17,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool? obscureText;
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
+  final String? helperText;
   CustomTextFormField(
       {Key? key,
       this.padding,
@@ -30,7 +31,8 @@ class CustomTextFormField extends StatefulWidget {
       this.controller,
       this.obscureText,
       this.validator,
-      this.inputFormatters})
+      this.inputFormatters,
+      this.helperText})
       : super(key: key);
 
   @override
@@ -40,6 +42,13 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   final _defaultBorder = const OutlineInputBorder(
       borderSide: BorderSide(color: AppColors.greenlightTwo));
+  String? _helperText;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _helperText = widget.helperText;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             horizontal: 24,
           ),
       child: TextFormField(
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              _helperText = null;
+            });
+          } else {
+            setState(() {
+              _helperText = widget.helperText;
+            });
+          }
+        },
         validator: widget.validator,
         inputFormatters: widget.inputFormatters,
         obscureText: widget.obscureText ?? false,
@@ -59,6 +79,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         textCapitalization:
             widget.textCapitalization ?? TextCapitalization.none,
         decoration: InputDecoration(
+          helperText: _helperText,
+          helperMaxLines: 3,
+          errorMaxLines: 3,
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
           labelText: widget.labelText!.toUpperCase(),
@@ -71,7 +94,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           enabledBorder: _defaultBorder,
           disabledBorder: _defaultBorder,
         ),
-        // controller: _nameController,
+        controller: widget.controller,
       ),
     );
   }

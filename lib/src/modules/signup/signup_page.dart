@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:financy_app/src/core/utils/uppercase._text_format.dart';
+import 'package:financy_app/src/core/utils/validator.dart';
+import 'package:financy_app/src/modules/signup/sign_up_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_colors.dart';
@@ -19,6 +21,22 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formkey = GlobalKey<FormState>();
+  final TextEditingController passwordController = TextEditingController();
+  final _controller = SignUpController();
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      log(_controller.state.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,22 +67,28 @@ class _SignUpPageState extends State<SignUpPage> {
                   inputFormatters: [
                     UpperCaseTextInputFormatter(),
                   ],
-                  validator: (value) {
-                    print(value);
-                    return null;
-                  },
+                  validator: Validator.valitadeName,
                 ),
                 CustomTextFormField(
                   labelText: 'Your Email',
                   hintText: 'moses@email.com',
+                  validator: Validator.valitadeEmail,
                 ),
-                const PasswordFormField(
+                PasswordFormField(
                   labelText: 'CHOOSE YOUR PASSWORD',
                   hintText: '*********',
+                  controller: passwordController,
+                  helperText:
+                      'Must have at least 8 characters, 1 capital letter and 1 number.',
+                  validator: Validator.valitadePassword,
                 ),
-                const PasswordFormField(
+                PasswordFormField(
                   labelText: 'CONFIRM YOUR PASSWORD',
                   hintText: '*********',
+                  validator: (value) => Validator.validateConfirmPassword(
+                    passwordValue: passwordController.text,
+                    confirmPasswordValue: value,
+                  ),
                 ),
               ],
             ),
@@ -74,8 +98,14 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           PrimaryButton(
               onPressed: () {
-                final valid = _formkey.currentState!.validate();
-                log(valid.toString());
+                final valid = _formkey.currentState != null &&
+                    _formkey.currentState!.validate();
+
+                if (valid) {
+                  _controller.doSignUp();
+                } else {
+                  log('Error');
+                }
               },
               label: 'Sign Up'),
           CustomTextListButton(
