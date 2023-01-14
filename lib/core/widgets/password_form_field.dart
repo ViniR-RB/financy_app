@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:financy_app/src/core/widgets/custom_text_form_field.dart';
+import 'package:financy_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class PasswordFormField extends StatefulWidget {

@@ -1,16 +1,21 @@
 import 'dart:developer';
 
-import 'package:financy_app/src/core/utils/uppercase._text_format.dart';
-import 'package:financy_app/src/core/utils/validator.dart';
+import 'package:financy_app/core/utils/uppercase._text_format.dart';
+import 'package:financy_app/core/utils/validator.dart';
 import 'package:financy_app/src/modules/signup/sign_up_controller.dart';
+import 'package:financy_app/src/modules/signup/sigup_up_state.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/app_colors.dart';
-import '../../core/app_text_styles.dart';
-import '../../core/widgets/custom_text_form_field.dart';
-import '../../core/widgets/custom_text_list_button.dart';
-import '../../core/widgets/password_form_field.dart';
-import '../../core/widgets/primary_button.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/constants/routes.dart';
+import '../../../core/services/mock_auth_service.dart';
+import '../../../core/widgets/custom_buttom_sheet.dart';
+import '../../../core/widgets/custom_circular_progress.dart';
+import '../../../core/widgets/custom_text_form_field.dart';
+import '../../../core/widgets/custom_text_list_button.dart';
+import '../../../core/widgets/password_form_field.dart';
+import '../../../core/widgets/primary_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -21,11 +26,15 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formkey = GlobalKey<FormState>();
-  final TextEditingController passwordController = TextEditingController();
-  final _controller = SignUpController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final _controller = SignUpController(MockAuthService());
   @override
   void dispose() {
-    passwordController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -33,7 +42,23 @@ class _SignUpPageState extends State<SignUpPage> {
   void initState() {
     super.initState();
     _controller.addListener(() {
-      log(_controller.state.toString());
+      if (_controller.state is SignUpLoadingState) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const Center(
+                child: CustomCircularProgressIndicator(),
+              );
+            });
+      }
+      if (_controller.state is SignUpSucessState) {
+        Navigator.of(context).pop();
+      }
+      if (_controller.state is SignUpErrorState) {
+        final error = _controller.state as SignUpErrorState;
+        Navigator.of(context).pop();
+        customBottomSheet(context, error.massage);
+      }
     });
   }
 
@@ -62,6 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: [
                 CustomTextFormField(
+                  controller: _nameController,
                   labelText: 'Your Name',
                   hintText: ' JOHN DOE',
                   inputFormatters: [
@@ -70,6 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   validator: Validator.valitadeName,
                 ),
                 CustomTextFormField(
+                  controller: _emailController,
                   labelText: 'Your Email',
                   hintText: 'moses@email.com',
                   validator: Validator.valitadeEmail,
@@ -77,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 PasswordFormField(
                   labelText: 'CHOOSE YOUR PASSWORD',
                   hintText: '*********',
-                  controller: passwordController,
+                  controller: _passwordController,
                   helperText:
                       'Must have at least 8 characters, 1 capital letter and 1 number.',
                   validator: Validator.valitadePassword,
@@ -86,14 +113,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'CONFIRM YOUR PASSWORD',
                   hintText: '*********',
                   validator: (value) => Validator.validateConfirmPassword(
-                    passwordValue: passwordController.text,
+                    passwordValue: _passwordController.text,
                     confirmPasswordValue: value,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           PrimaryButton(
@@ -102,14 +129,19 @@ class _SignUpPageState extends State<SignUpPage> {
                     _formkey.currentState!.validate();
 
                 if (valid) {
-                  _controller.doSignUp();
+                  _controller.signUp(
+                      email: _emailController.text,
+                      name: _nameController.text,
+                      password: _passwordController.text);
                 } else {
                   log('Error');
                 }
               },
               label: 'Sign Up'),
           CustomTextListButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, NamedRoutes.signIn);
+            },
             children: [
               Text(
                 'Already have account? ',

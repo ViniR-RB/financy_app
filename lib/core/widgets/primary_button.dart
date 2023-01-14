@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../app_colors.dart';
-import '../app_text_styles.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_text_styles.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -22,14 +22,6 @@ class PrimaryButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.8,
         decoration: BoxDecoration(
           borderRadius: _borderRadius,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greenlightTwo.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: const Offset(0, 8),
-            ),
-          ],
           shape: BoxShape.rectangle,
           gradient: LinearGradient(
               begin: Alignment.topCenter,
