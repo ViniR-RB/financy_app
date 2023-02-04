@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
-import '../../../core/services/mock_auth_service.dart';
+import '../../../core/locator.dart';
 import '../../../core/widgets/custom_buttom_sheet.dart';
 import '../../../core/widgets/custom_circular_progress.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignInPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  final _controller = SignInController(MockAuthService());
+  final _controller = locator.get<SignInController>();
   @override
   void dispose() {
     _passwordController.dispose();

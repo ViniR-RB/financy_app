@@ -18,7 +18,7 @@ class CustomTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
   final String? helperText;
-  CustomTextFormField(
+  const CustomTextFormField(
       {Key? key,
       this.padding,
       this.labelText,
@@ -45,6 +45,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   String? _helperText;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     _helperText = widget.helperText;

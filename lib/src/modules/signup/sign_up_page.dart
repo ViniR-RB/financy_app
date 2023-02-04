@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/constants/routes.dart';
+import '../../../core/locator.dart';
 import '../../../core/services/mock_auth_service.dart';
 import '../../../core/widgets/custom_buttom_sheet.dart';
 import '../../../core/widgets/custom_circular_progress.dart';
@@ -29,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final _controller = SignUpController(MockAuthService());
+  final _controller = locator.get<SignUpController>();
   @override
   void dispose() {
     _passwordController.dispose();
