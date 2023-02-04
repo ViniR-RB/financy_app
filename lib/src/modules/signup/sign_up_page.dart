@@ -10,7 +10,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/constants/routes.dart';
 import '../../../core/locator.dart';
-import '../../../core/services/mock_auth_service.dart';
 import '../../../core/widgets/custom_buttom_sheet.dart';
 import '../../../core/widgets/custom_circular_progress.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
@@ -69,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Text(
@@ -82,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
             style:
                 TextStyles.mediumText.copyWith(color: AppColors.greenlightTwo),
           ),
-          Container(child: Image.asset('assets/images/sign_up_image.png')),
+          Image.asset('assets/images/sign_up_image.png'),
           Form(
             key: _formkey,
             child: Column(

@@ -5,6 +5,7 @@ import 'package:financy_app/src/modules/sigin/sign_in_page.dart';
 import 'package:financy_app/src/modules/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
+import 'modules/home/home_pgae.dart';
 import 'modules/signup/sign_up_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         NamedRoutes.splash: (context) => const SplashPage(),
         NamedRoutes.signUp: (context) => const SignUpPage(),
         NamedRoutes.signIn: (context) => const SignInPage(),
+        NamedRoutes.homePage: (context) => const HomePage(),
       },
     );
   }

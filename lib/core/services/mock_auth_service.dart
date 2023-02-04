@@ -16,7 +16,7 @@ class MockAuthService implements AuthService {
       log('Logou');
       final UserModel user = UserModel(
         name: '',
-        id: email.hashCode,
+        id: email.hashCode.toString(),
         email: email,
       );
 
@@ -39,11 +39,11 @@ class MockAuthService implements AuthService {
       }
       log('Logou');
       final UserModel user = UserModel(
-        id: email.hashCode,
+        id: email.hashCode.toString(),
         name: name,
         email: email,
       );
-      print(user.email);
+
       return user;
     } catch (e) {
       if (password.startsWith('123')) {

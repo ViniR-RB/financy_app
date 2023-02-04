@@ -45,7 +45,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             });
           },
           child:
-              isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility)),
+              isHidden ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility)),
     );
   }
 }

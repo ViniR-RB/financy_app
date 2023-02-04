@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724182562105",
+    "project_id": "financy-33ec1",
+    "storage_bucket": "financy-33ec1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724182562105:android:86fbaf263ec3ce63fd64e8",
+        "android_client_info": {
+          "package_name": "dev.vini.financy.financy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724182562105-a4mf5vd3tk8telq8rad5ajn95kc8moth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfHtoBXivWqD-ZiVWvb5XYt4fReZTzFKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724182562105-a4mf5vd3tk8telq8rad5ajn95kc8moth.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:financy_app/core/constants/routes.dart';
 import 'package:financy_app/core/utils/validator.dart';
+import 'package:financy_app/src/modules/home/home_pgae.dart';
 import 'package:financy_app/src/modules/sigin/sign_in_controller.dart';
 import 'package:financy_app/src/modules/sigin/sigup_in_state.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,9 @@ class _SignUpPageState extends State<SignInPage> {
             });
       }
       if (_controller.state is SignInSucessState) {
-        Navigator.of(context).pop();
+        debugPrint('Rodou');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            NamedRoutes.homePage, (Route<dynamic> route) => route is HomePage);
       }
       if (_controller.state is SignInErrorState) {
         final error = _controller.state as SignInErrorState;

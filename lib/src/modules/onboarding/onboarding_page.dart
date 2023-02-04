@@ -18,9 +18,7 @@ class OnBoardingPage extends StatelessWidget {
             height: 60,
           ),
           Expanded(
-            child: Container(
-              child: Image.asset('assets/images/onboarding_image.png'),
-            ),
+            child: Image.asset('assets/images/onboarding_image.png'),
           ),
           Column(
             children: [
